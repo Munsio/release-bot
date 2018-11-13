@@ -1,0 +1,10 @@
+# Token for notifications
+SlackToken = "OAUTH-TOKEN"
+
+# Gitlab token for api access
+GitlabToken = "TOKEN"
+
+# Port
+Port = 8080
+
+LogLevel = "info"
