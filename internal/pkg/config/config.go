@@ -7,10 +7,11 @@ import (
 
 // Config representation
 type Config struct {
-	Port        int
-	SlackToken  string
-	GitlabToken string
-	LogLevel    string
+	Port           int
+	SlackToken     string
+	GitlabToken    string
+	GitlabApiToken string
+	LogLevel       string
 }
 
 // LoadConfig is used to create an Config struct
@@ -33,10 +34,15 @@ func LoadConfig() *Config {
 
 	lvl, err := log.ParseLevel(conf.LogLevel)
 	if err != nil {
-		log.Error("Invalid log level: %s", conf.LogLevel)
+		log.Error("Invalid log level:" + conf.LogLevel)
 		return nil
 	}
 	log.SetLevel(lvl)
+
+	log.Info(lvl)
+	if lvl == log.DebugLevel {
+		//log.SetReportCaller(true)
+	}
 
 	return &conf
 }

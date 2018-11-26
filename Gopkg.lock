@@ -18,6 +18,30 @@
   version = "v1.4.7"
 
 [[projects]]
+  digest = "1:97df918963298c287643883209a2c3f642e6593379f97ab400c2a2e219ab647d"
+  name = "github.com/golang/protobuf"
+  packages = ["proto"]
+  pruneopts = "UT"
+  revision = "aa810b61a9c79d51363740d207bb46cf8e620ed5"
+  version = "v1.2.0"
+
+[[projects]]
+  digest = "1:a63cff6b5d8b95638bfe300385d93b2a6d9d687734b863da8e09dc834510a690"
+  name = "github.com/google/go-querystring"
+  packages = ["query"]
+  pruneopts = "UT"
+  revision = "44c6ddd0a2342c386950e880b658017258da92fc"
+  version = "v1.0.0"
+
+[[projects]]
+  digest = "1:7b5c6e2eeaa9ae5907c391a91c132abfd5c9e8a784a341b5625e750c67e6825d"
+  name = "github.com/gorilla/websocket"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "66b9c49e59c6c48f0ffce28c2d8b8a5678502c6d"
+  version = "v1.4.0"
+
+[[projects]]
   digest = "1:c0d19ab64b32ce9fe5cf4ddceba78d5bc9807f0016db6b1183599da3dcc24d10"
   name = "github.com/hashicorp/hcl"
   packages = [
@@ -61,12 +85,39 @@
   version = "v1.1.2"
 
 [[projects]]
+  digest = "1:95d38d218bf2290987c6b0e885a9f0f2d3d3239235acaddca01c3fe36e5e5566"
+  name = "github.com/nlopes/slack"
+  packages = [
+    ".",
+    "slackutilsx",
+  ]
+  pruneopts = "UT"
+  revision = "b9033a72a20bf84563485e86a2adbea4bf265804"
+  version = "v0.4.0"
+
+[[projects]]
   digest = "1:95741de3af260a92cc5c7f3f3061e85273f5a81b5db20d4bd68da74bd521675e"
   name = "github.com/pelletier/go-toml"
   packages = ["."]
   pruneopts = "UT"
   revision = "c01d1270ff3e442a8a57cddc1c92dc1138598194"
   version = "v1.2.0"
+
+[[projects]]
+  digest = "1:40e195917a951a8bf867cd05de2a46aaf1806c50cf92eebf4c16f78cd196f747"
+  name = "github.com/pkg/errors"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "645ef00459ed84a119197bfb8d8205042c6df63d"
+  version = "v0.8.0"
+
+[[projects]]
+  branch = "master"
+  digest = "1:def689e73e9252f6f7fe66834a76751a41b767e03daab299e607e7226c58a855"
+  name = "github.com/shurcooL/sanitized_anchor_name"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "86672fcb3f950f35f2e675df2240550f2a50762f"
 
 [[projects]]
   digest = "1:6a4a11ba764a56d2758899ec6f3848d24698d48442ebce85ee7a3f63284526cd"
@@ -112,12 +163,42 @@
   version = "v1.2.1"
 
 [[projects]]
+  digest = "1:dd0d6cfb7bd760235de8096c3583c4007cf3e252077b329c59c71ee855f184fb"
+  name = "github.com/xanzy/go-gitlab"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "3118dd567a63a869721c8fe7c7b0757a83c437bd"
+  version = "v0.11.6"
+
+[[projects]]
   branch = "master"
   digest = "1:3f3a05ae0b95893d90b9b3b5afdb79a9b3d96e4e36e099d841ae602e4aca0da8"
   name = "golang.org/x/crypto"
   packages = ["ssh/terminal"]
   pruneopts = "UT"
   revision = "e4dc69e5b2fd71dcaf8bd5d054eb936deb78d1fa"
+
+[[projects]]
+  branch = "master"
+  digest = "1:f8b491a7c25030a895a0e579742d07136e6958e77ef2d46e769db8eec4e58fcd"
+  name = "golang.org/x/net"
+  packages = [
+    "context",
+    "context/ctxhttp",
+  ]
+  pruneopts = "UT"
+  revision = "88d92db4c548972d942ac2a3531a8a9a34c82ca6"
+
+[[projects]]
+  branch = "master"
+  digest = "1:bd33fb266abe5db1fb1c04e58e98192068f05a8d22fae2a9f22270c8422bb331"
+  name = "golang.org/x/oauth2"
+  packages = [
+    ".",
+    "internal",
+  ]
+  pruneopts = "UT"
+  revision = "f42d05182288abf10faef86d16c0d07b8d40ea2d"
 
 [[projects]]
   branch = "master"
@@ -146,12 +227,36 @@
   version = "v0.3.0"
 
 [[projects]]
+  digest = "1:08206298775e5b462e6c0333f4471b44e63f1a70e42952b6ede4ecc9572281eb"
+  name = "google.golang.org/appengine"
+  packages = [
+    "internal",
+    "internal/base",
+    "internal/datastore",
+    "internal/log",
+    "internal/remote_api",
+    "internal/urlfetch",
+    "urlfetch",
+  ]
+  pruneopts = "UT"
+  revision = "4a4468ece617fc8205e99368fa2200e9d1fad421"
+  version = "v1.3.0"
+
+[[projects]]
   digest = "1:02b42832e1dafc76aae64376299c2494f56db5eb8a4ff49427ff813e7bc7f905"
   name = "gopkg.in/go-playground/webhooks.v5"
   packages = ["gitlab"]
   pruneopts = "UT"
   revision = "dfc330f6eb49e2cf5b18ca40df7229a83f36e137"
   version = "v5.2.0"
+
+[[projects]]
+  digest = "1:2ee0f15eb0fb04f918db7c2dcf39745f40d69f798ef171610a730e8a56aaa4fd"
+  name = "gopkg.in/russross/blackfriday.v2"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "d3b5b032dc8e8927d31a5071b56e14c89f045135"
+  version = "v2.0.1"
 
 [[projects]]
   digest = "1:342378ac4dcb378a5448dd723f0784ae519383532f5e70ade24132c4c8693202"
@@ -166,8 +271,11 @@
   analyzer-version = 1
   input-imports = [
     "github.com/Sirupsen/logrus",
+    "github.com/nlopes/slack",
     "github.com/spf13/viper",
+    "github.com/xanzy/go-gitlab",
     "gopkg.in/go-playground/webhooks.v5/gitlab",
+    "gopkg.in/russross/blackfriday.v2",
   ]
   solver-name = "gps-cdcl"
   solver-version = 1
