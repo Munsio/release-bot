@@ -7,21 +7,27 @@ import (
 
 // Config representation
 type Config struct {
-	Port           int
-	SlackToken     string
-	GitlabToken    string
-	GitlabApiToken string
-	LogLevel       string
+	LogLevel string
+	Slack    struct {
+		Token   string
+		Channel string
+	}
+	Gitlab struct {
+		WebhookSecret string
+		APIToken      string
+		BaseURL       string
+	}
+	Server struct {
+		Port int
+	}
 }
 
 // LoadConfig is used to create an Config struct
-// by merging FS / ENV / FLAGS in that order
-func LoadConfig() *Config {
+func LoadConfig(cfgFile string) *Config {
 
 	var conf Config
 
-	viper.SetConfigName("config")
-	viper.AddConfigPath(".")
+	viper.SetConfigFile(cfgFile)
 
 	if err := viper.ReadInConfig(); err != nil {
 		log.Fatalf("Error reading config file, %s", err)
@@ -35,14 +41,8 @@ func LoadConfig() *Config {
 	lvl, err := log.ParseLevel(conf.LogLevel)
 	if err != nil {
 		log.Error("Invalid log level:" + conf.LogLevel)
-		return nil
 	}
 	log.SetLevel(lvl)
-
-	log.Info(lvl)
-	if lvl == log.DebugLevel {
-		//log.SetReportCaller(true)
-	}
 
 	return &conf
 }

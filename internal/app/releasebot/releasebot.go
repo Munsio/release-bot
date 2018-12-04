@@ -1,32 +1,29 @@
 package releasebot
 
 import (
-	"github.com/karriereat/release-bot/internal/app/releasebot/handler"
+	log "github.com/Sirupsen/logrus"
 	"github.com/karriereat/release-bot/internal/pkg/config"
-	"github.com/karriereat/release-bot/internal/pkg/notifier"
-	serv "github.com/karriereat/release-bot/internal/pkg/server"
+	"github.com/karriereat/release-bot/internal/pkg/handler"
+	"github.com/karriereat/release-bot/pkg/notifier"
+	"github.com/karriereat/release-bot/pkg/server"
 )
 
 // Bot struct
 type Bot struct {
-	config   *config.Config
-	server   *serv.Server
-	notifier *notifier.SlackNotifier
+	server   *server.Server
+	notifier notifier.Notifier
 }
 
 // NewBot returns an Bot instance
 func NewBot(conf *config.Config) *Bot {
 
-	notifyChan := make(chan notifier.Message)
+	notifier := notifier.NewSlackNotifier(conf.Slack.Token)
 
-	server := addHandler(conf, notifyChan)
+	server := addHandler(conf, notifier)
 
-	notifier := notifier.NewSlackNotifier(conf)
-
-	go notifier.Run(notifyChan)
+	go notifier.Run()
 
 	return &Bot{
-		config:   conf,
 		server:   server,
 		notifier: notifier,
 	}
@@ -37,11 +34,17 @@ func (bot *Bot) Run() {
 	bot.server.Run()
 }
 
-func addHandler(conf *config.Config, notifyChan chan notifier.Message) *serv.Server {
-	server := serv.NewServer(conf)
+func addHandler(conf *config.Config, notifier *notifier.SlackNotifier) *server.Server {
+	server := server.NewServer(conf.Server.Port)
 
 	server.AddRoute("/", &handler.IndexHandler{})
-	server.AddRoute("/hooks/gitlab", &handler.GitlabHandler{Config: conf, NotifyChan: notifyChan})
+
+	gitlabHandler, err := handler.NewGitlabHandler(conf, notifier.NotifyChan)
+	if err != nil {
+		log.Errorf("Ommiting gitlab handler: %v", err)
+	} else {
+		server.AddRoute("/hooks/gitlab", gitlabHandler)
+	}
 
 	return server
 }

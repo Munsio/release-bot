@@ -9,18 +9,19 @@ import (
 	"github.com/karriereat/release-bot/internal/pkg/config"
 )
 
-var configFlag string
+var cfgFile string
 
 func init() {
-	flag.StringVar(&configFlag, "c", "./config.toml", "path to config file")
+	flag.StringVar(&cfgFile, "c", "./config.toml", "path to config file")
 
 	log.SetFormatter(&log.TextFormatter{FullTimestamp: true})
 	log.SetOutput(os.Stdout)
 }
 
 func main() {
+	flag.Parse()
 
-	conf := config.LoadConfig()
+	conf := config.LoadConfig(cfgFile)
 	b := releasebot.NewBot(conf)
 
 	b.Run()

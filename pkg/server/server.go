@@ -5,20 +5,19 @@ import (
 	"strconv"
 
 	log "github.com/Sirupsen/logrus"
-	"github.com/karriereat/release-bot/internal/pkg/config"
 )
 
 // Server struct
 type Server struct {
-	Config *config.Config
+	port   int
 	router *http.ServeMux
 }
 
 // NewServer creates the http listener
-func NewServer(conf *config.Config) *Server {
+func NewServer(port int) *Server {
 	mux := http.NewServeMux()
 	return &Server{
-		Config: conf,
+		port:   port,
 		router: mux,
 	}
 }
@@ -30,6 +29,6 @@ func (serv *Server) AddRoute(path string, handle http.Handler) {
 
 // Run the server
 func (serv *Server) Run() {
-	log.Info("listen on port: " + strconv.Itoa(serv.Config.Port))
-	http.ListenAndServe(":"+strconv.Itoa(serv.Config.Port), serv.router)
+	log.Info("listen on port: " + strconv.Itoa(serv.port))
+	http.ListenAndServe(":"+strconv.Itoa(serv.port), serv.router)
 }

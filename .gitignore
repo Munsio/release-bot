@@ -18,3 +18,4 @@ config.toml
 vendor/
 build/
 dist/
+.vscode

@@ -1,10 +1,17 @@
+# possible log-levels (info, error, fatal)
+LogLevel = "debug"
+
 # Token for notifications
-SlackToken = "OAUTH-TOKEN"
+[Slack]
+Token = "OAUTH-TOKEN"
+Channel = "#channelname or @user.name"
 
 # Gitlab token for api access
-GitlabToken = "TOKEN"
+[Gitlab]
+WebhookSecret = "my_super_secret_token"
+APIToken = "api token"
+BaseURL = "https://urltogitlab.com/api/v4" #remove /api/v4 to use older gitlab api version
 
-# Port
-Port = 8080
-
-LogLevel = "info"
+# Server config
+[Server]
+Port = 8090

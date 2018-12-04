@@ -61,6 +61,14 @@
   version = "v1.0.0"
 
 [[projects]]
+  branch = "master"
+  digest = "1:99c9748d016ccf5ae8838961a005ec08dec49480f10f64391c0d8bcb4068b405"
+  name = "github.com/karriereat/blackfriday-slack"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "4518e75b846c81ffc8fe732bdf36a6f0d15c4d3a"
+
+[[projects]]
   digest = "1:0a69a1c0db3591fcefb47f115b224592c8dfa4368b7ba9fae509d5e16cdc95c8"
   name = "github.com/konsorten/go-windows-terminal-sequences"
   packages = ["."]
@@ -163,20 +171,20 @@
   version = "v1.2.1"
 
 [[projects]]
-  digest = "1:dd0d6cfb7bd760235de8096c3583c4007cf3e252077b329c59c71ee855f184fb"
+  digest = "1:f2c4fa13782c35d3cea2bf299db73047849c20ee2f3d5739520c65df90e25e93"
   name = "github.com/xanzy/go-gitlab"
   packages = ["."]
   pruneopts = "UT"
-  revision = "3118dd567a63a869721c8fe7c7b0757a83c437bd"
-  version = "v0.11.6"
+  revision = "954568c5d9242be1fb907039d769952fa4f6bc70"
+  version = "v0.11.7"
 
 [[projects]]
   branch = "master"
-  digest = "1:3f3a05ae0b95893d90b9b3b5afdb79a9b3d96e4e36e099d841ae602e4aca0da8"
+  digest = "1:38f553aff0273ad6f367cb0a0f8b6eecbaef8dc6cb8b50e57b6a81c1d5b1e332"
   name = "golang.org/x/crypto"
   packages = ["ssh/terminal"]
   pruneopts = "UT"
-  revision = "e4dc69e5b2fd71dcaf8bd5d054eb936deb78d1fa"
+  revision = "505ab145d0a99da450461ae2c1a9f6cd10d1f447"
 
 [[projects]]
   branch = "master"
@@ -187,29 +195,29 @@
     "context/ctxhttp",
   ]
   pruneopts = "UT"
-  revision = "88d92db4c548972d942ac2a3531a8a9a34c82ca6"
+  revision = "351d144fa1fc0bd934e2408202be0c29f25e35a0"
 
 [[projects]]
   branch = "master"
-  digest = "1:bd33fb266abe5db1fb1c04e58e98192068f05a8d22fae2a9f22270c8422bb331"
+  digest = "1:5276e08fe6a1dfdb65b4f46a2e5d5c9e00be6e499105e441049c3c04a0c83b36"
   name = "golang.org/x/oauth2"
   packages = [
     ".",
     "internal",
   ]
   pruneopts = "UT"
-  revision = "f42d05182288abf10faef86d16c0d07b8d40ea2d"
+  revision = "d668ce993890a79bda886613ee587a69dd5da7a6"
 
 [[projects]]
   branch = "master"
-  digest = "1:6a875550c3b582f6c2d7e2ce44aba792511f00016d7c46b0a4fb26f730ef3058"
+  digest = "1:0c7cb58af944f9690af91474a75371eecfe54c1ce3771a8dc08924430ee785d3"
   name = "golang.org/x/sys"
   packages = [
     "unix",
     "windows",
   ]
   pruneopts = "UT"
-  revision = "66b7b1311ac80bbafcd2daeef9a5e6e2cd1e2399"
+  revision = "4ed8d59d0b35e1e29334a206d1b3f38b1e5dfb31"
 
 [[projects]]
   digest = "1:8029e9743749d4be5bc9f7d42ea1659471767860f0cdc34d37c3111bd308a295"
@@ -247,8 +255,8 @@
   name = "gopkg.in/go-playground/webhooks.v5"
   packages = ["gitlab"]
   pruneopts = "UT"
-  revision = "dfc330f6eb49e2cf5b18ca40df7229a83f36e137"
-  version = "v5.2.0"
+  revision = "26ca2ef893483ddc9984d093378a623d9d741428"
+  version = "v5.3.0"
 
 [[projects]]
   digest = "1:2ee0f15eb0fb04f918db7c2dcf39745f40d69f798ef171610a730e8a56aaa4fd"
@@ -259,18 +267,19 @@
   version = "v2.0.1"
 
 [[projects]]
-  digest = "1:342378ac4dcb378a5448dd723f0784ae519383532f5e70ade24132c4c8693202"
+  digest = "1:4d2e5a73dc1500038e504a8d78b986630e3626dc027bc030ba5c75da257cdb96"
   name = "gopkg.in/yaml.v2"
   packages = ["."]
   pruneopts = "UT"
-  revision = "5420a8b6744d3b0345ab293f6fcba19c978f1183"
-  version = "v2.2.1"
+  revision = "51d6538a90f86fe93ac480b35f37b2be17fef232"
+  version = "v2.2.2"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
   input-imports = [
     "github.com/Sirupsen/logrus",
+    "github.com/karriereat/blackfriday-slack",
     "github.com/nlopes/slack",
     "github.com/spf13/viper",
     "github.com/xanzy/go-gitlab",
