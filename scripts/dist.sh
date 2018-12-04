@@ -7,6 +7,11 @@ if [ -z $VERSION ]; then
     exit 1
 fi
 
+if [ ! -d "./build" ]; then
+    echo "Build directory does not exists. Please run 'make build' first."
+    exit 1
+fi
+
 # Check dependencies
 echo -n "## Checking dependencies... "
 for name in md5sum shasum
