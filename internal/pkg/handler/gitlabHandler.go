@@ -72,7 +72,8 @@ func (h *GitlabHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		text := fmt.Sprintf("**There is a new release %s for: %s**\n\n\n", version, url)
 
 		message := notifier.NewMessage()
-		message.Text = strings.Join([]string{text, tag.Release.Description}, " ")
+		message.PreText = text
+		message.Text = tag.Release.Description
 		message.Channel = h.MessageChannel
 		message.ParseMarkdown = true
 

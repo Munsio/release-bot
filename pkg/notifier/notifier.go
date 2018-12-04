@@ -9,6 +9,7 @@ type Notifier interface {
 // Message is the struct for all outgoing messages
 type Message struct {
 	Channel       string
+	PreText       string
 	Text          string
 	ParseMarkdown bool
 }

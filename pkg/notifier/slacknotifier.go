@@ -38,11 +38,19 @@ func (sn SlackNotifier) Run() {
 func (sn SlackNotifier) notify(msg Message) {
 
 	params := slack.PostMessageParameters{}
+	attachment := slack.Attachment{}
+
 	if msg.ParseMarkdown {
-		params.Markdown = true
 		msg.Text = parseMarkdown(msg.Text)
+		msg.PreText = parseMarkdown(msg.PreText)
+		attachment.MarkdownIn = []string{"text", "pretext"}
 	}
-	_, _, err := sn.client.PostMessage(msg.Channel, msg.Text, params)
+
+	attachment.Pretext = msg.PreText
+	attachment.Text = msg.Text
+	params.Attachments = append(params.Attachments, attachment)
+
+	_, _, err := sn.client.PostMessage(msg.Channel, "", params)
 
 	if err != nil {
 		log.Error(err)
