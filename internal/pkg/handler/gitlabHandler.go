@@ -59,16 +59,20 @@ func (h *GitlabHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	case gitlabHook.TagEventPayload:
 		hooktag := payload.(gitlabHook.TagEventPayload)
 
-		version := strings.Split(hooktag.Ref, "/")
-		tag, _, err := h.apiClient.Tags.GetTag(int(hooktag.ProjectID), version[len(version)-1])
+		fullVersion := strings.Split(hooktag.Ref, "/")
+		version := fullVersion[len(fullVersion)-1]
+		tag, _, err := h.apiClient.Tags.GetTag(int(hooktag.ProjectID), version)
 		if err != nil {
 			log.Error(err)
 			w.WriteHeader(http.StatusInternalServerError)
 			return
 		}
 
+		url := fmt.Sprintf("[%s](%s)", hooktag.Project.Name, hooktag.Project.WebURL)
+		text := fmt.Sprintf("**There is a new release %s for: %s**\n\n\n", version, url)
+
 		message := notifier.NewMessage()
-		message.Text = tag.Release.Description
+		message.Text = strings.Join([]string{text, tag.Release.Description}, " ")
 		message.Channel = h.MessageChannel
 		message.ParseMarkdown = true
 

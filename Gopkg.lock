@@ -62,11 +62,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:99c9748d016ccf5ae8838961a005ec08dec49480f10f64391c0d8bcb4068b405"
+  digest = "1:407c88ec2a880efb23410d64c0325da43942660220ae80a410b9424594d65adf"
   name = "github.com/karriereat/blackfriday-slack"
   packages = ["."]
   pruneopts = "UT"
-  revision = "4518e75b846c81ffc8fe732bdf36a6f0d15c4d3a"
+  revision = "69f0b73de24b9d9d77ad6a52c166e22285667b03"
 
 [[projects]]
   digest = "1:0a69a1c0db3591fcefb47f115b224592c8dfa4368b7ba9fae509d5e16cdc95c8"
