@@ -54,9 +54,7 @@ func (h *GitlabHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	switch payload.(type) {
-
-	case gitlabHook.TagEventPayload:
+	if _, ok := payload.(gitlabHook.TagEventPayload); ok {
 		hooktag := payload.(gitlabHook.TagEventPayload)
 
 		fullVersion := strings.Split(hooktag.Ref, "/")
