@@ -24,6 +24,10 @@
 #   go-tests = true
 #   unused-packages = true
 
+[[constraint]]
+name = "gopkg.in/go-playground/webhooks.v5"
+source = "https://github.com/Munsio/webhooks.git"
+revision = "v5.5.0"
 
 [prune]
   go-tests = true

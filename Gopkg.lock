@@ -251,12 +251,12 @@
   version = "v1.3.0"
 
 [[projects]]
-  digest = "1:02b42832e1dafc76aae64376299c2494f56db5eb8a4ff49427ff813e7bc7f905"
+  digest = "1:38a934345389111bd361750bd7df784177f068fedc3d3f09e18932d8c1d6c13e"
   name = "gopkg.in/go-playground/webhooks.v5"
   packages = ["gitlab"]
   pruneopts = "UT"
-  revision = "26ca2ef893483ddc9984d093378a623d9d741428"
-  version = "v5.3.0"
+  revision = "v5.5.0"
+  source = "https://github.com/Munsio/webhooks.git"
 
 [[projects]]
   digest = "1:2ee0f15eb0fb04f918db7c2dcf39745f40d69f798ef171610a730e8a56aaa4fd"
