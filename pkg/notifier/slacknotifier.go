@@ -36,24 +36,28 @@ func (sn SlackNotifier) Run() {
 
 // notify sends the message to the slack channel defined in msg
 func (sn SlackNotifier) notify(msg Message) {
-
+	log.Debug("Recieved message")
 	params := slack.PostMessageParameters{}
 	attachment := slack.Attachment{}
 
 	if msg.ParseMarkdown {
+		log.Debug("Parse markdown")
 		msg.Text = parseMarkdown(msg.Text)
 		msg.PreText = parseMarkdown(msg.PreText)
 		attachment.MarkdownIn = []string{"text", "pretext"}
+		log.Debug("Parsing markdown finished")
 	}
 
 	attachment.Pretext = msg.PreText
 	attachment.Text = msg.Text
 	params.Attachments = append(params.Attachments, attachment)
 
+	log.Debug("Send message to slack")
 	_, _, err := sn.client.PostMessage(msg.Channel, "", params)
-
 	if err != nil {
 		log.Error(err)
+	} else {
+		log.Debug("Message send sucessfully")
 	}
 }
 

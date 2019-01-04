@@ -46,8 +46,9 @@ func NewGitlabHandler(conf *config.Config, notifyChan chan notifier.Message) (*G
 
 // ServeHTTP gets called each time the desired route is called from external
 func (h *GitlabHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-
+	log.Debug("Recieved payload")
 	payload, err := h.hookParser.Parse(r, gitlabHook.TagEvents, gitlabHook.PushEvents)
+	log.Debug("Parsed payload")
 	if err != nil {
 		log.Error(err)
 		w.WriteHeader(http.StatusInternalServerError)
@@ -55,10 +56,12 @@ func (h *GitlabHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if _, ok := payload.(gitlabHook.TagEventPayload); ok {
+		log.Debug("Payload is TagPush event")
 		hooktag := payload.(gitlabHook.TagEventPayload)
 
 		fullVersion := strings.Split(hooktag.Ref, "/")
 		version := fullVersion[len(fullVersion)-1]
+		log.Debug("Get Tag from Gitlab")
 		tag, _, err := h.apiClient.Tags.GetTag(int(hooktag.ProjectID), version)
 		if err != nil {
 			log.Error(err)
@@ -69,6 +72,8 @@ func (h *GitlabHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		url := fmt.Sprintf("[%s](%s)", hooktag.Project.Name, hooktag.Project.WebURL)
 		text := fmt.Sprintf("**There is a new release %s for: %s**\n\n\n", version, url)
 
+		log.Debug("Build message")
+
 		message := notifier.NewMessage()
 		message.PreText = text
 		message.Text = tag.Release.Description
@@ -76,6 +81,7 @@ func (h *GitlabHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		message.ParseMarkdown = true
 
 		h.notifyChan <- message
+		log.Debug("Message sent")
 	}
 
 	w.WriteHeader(http.StatusOK)
