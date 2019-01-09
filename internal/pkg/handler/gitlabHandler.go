@@ -50,8 +50,13 @@ func (h *GitlabHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	payload, err := h.hookParser.Parse(r, gitlabHook.TagEvents, gitlabHook.PushEvents)
 	log.Debug("Parsed payload")
 	if err != nil {
-		log.Error(err)
-		w.WriteHeader(http.StatusInternalServerError)
+		if err == gitlabHook.ErrEventNotFound {
+			log.Error(err)
+			w.WriteHeader(http.StatusUnprocessableEntity)
+		} else {
+			log.Error(err)
+			w.WriteHeader(http.StatusInternalServerError)
+		}
 		return
 	}
 
@@ -66,6 +71,12 @@ func (h *GitlabHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			log.Error(err)
 			w.WriteHeader(http.StatusInternalServerError)
+			return
+		}
+
+		if tag.Release == nil {
+			log.Info("Release is nil - abort")
+			w.WriteHeader(http.StatusUnprocessableEntity)
 			return
 		}
 
