@@ -5,6 +5,7 @@ import (
 
 	log "github.com/Sirupsen/logrus"
 	"github.com/karriereat/blackfriday-slack"
+	"github.com/karriereat/release-bot/internal/pkg/config"
 	"github.com/nlopes/slack"
 	bf "gopkg.in/russross/blackfriday.v2"
 )
@@ -13,13 +14,14 @@ import (
 type SlackNotifier struct {
 	client     *slack.Client
 	NotifyChan chan Message
+	iconEmoji  string
 }
 
 // NewSlackNotifier builds an notifier depending on the configuration
-func NewSlackNotifier(token string) *SlackNotifier {
-	client := slack.New(token)
+func NewSlackNotifier(conf *config.Config) *SlackNotifier {
+	client := slack.New(conf.Slack.Token)
 	NotifyChan := make(chan Message)
-	return &SlackNotifier{client, NotifyChan}
+	return &SlackNotifier{client, NotifyChan, conf.Slack.IconEmoji}
 }
 
 // Run starts the channel listener
@@ -51,6 +53,7 @@ func (sn SlackNotifier) notify(msg Message) {
 	attachment.Pretext = msg.PreText
 	attachment.Text = msg.Text
 	params.Attachments = append(params.Attachments, attachment)
+	params.IconEmoji = sn.iconEmoji
 
 	log.Debug("Send message to slack")
 	_, _, err := sn.client.PostMessage(msg.Channel, "", params)

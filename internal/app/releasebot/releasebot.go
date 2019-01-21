@@ -17,7 +17,7 @@ type Bot struct {
 // NewBot returns an Bot instance
 func NewBot(conf *config.Config) *Bot {
 
-	notifier := notifier.NewSlackNotifier(conf.Slack.Token)
+	notifier := notifier.NewSlackNotifier(conf)
 
 	server := addHandler(conf, notifier)
 

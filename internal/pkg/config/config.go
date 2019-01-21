@@ -9,13 +9,15 @@ import (
 type Config struct {
 	LogLevel string
 	Slack    struct {
-		Token   string
-		Channel string
+		Token     string
+		Channel   string
+		IconEmoji string
 	}
 	Gitlab struct {
 		WebhookSecret string
 		APIToken      string
 		BaseURL       string
+		SkipSSLVerify bool
 	}
 	Server struct {
 		Port int
@@ -28,6 +30,7 @@ func LoadConfig(cfgFile string) *Config {
 	var conf Config
 
 	viper.SetConfigFile(cfgFile)
+	viper.SetDefault("Gitlab.SkipSSLVerify", false)
 
 	if err := viper.ReadInConfig(); err != nil {
 		log.Fatalf("Error reading config file, %s", err)

@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"crypto/tls"
 	"errors"
 	"fmt"
 	"net/http"
@@ -28,7 +29,15 @@ func NewGitlabHandler(conf *config.Config, notifyChan chan notifier.Message) (*G
 		log.Error(err)
 		return nil, errors.New("Cannot create gitlab webhook")
 	}
-	api := gitlabApi.NewClient(nil, conf.Gitlab.APIToken)
+
+	tr := &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: conf.Gitlab.SkipSSLVerify},
+	}
+	httpClient := http.Client{
+		Transport: tr,
+	}
+
+	api := gitlabApi.NewClient(&httpClient, conf.Gitlab.APIToken)
 	err = api.SetBaseURL(conf.Gitlab.BaseURL)
 	if err != nil {
 		log.Error(err)
@@ -74,20 +83,25 @@ func (h *GitlabHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		if tag.Release == nil {
-			log.Info("Release is nil - abort")
+		description := ""
+		if tag.Release != nil {
+			description = tag.Release.Description
+		}
+
+		if strings.Contains(description, "%SKIP-NOTIFY%") {
+			log.Info("found %SKIP-NOTIFY% in description - abort")
 			w.WriteHeader(http.StatusUnprocessableEntity)
 			return
 		}
 
-		url := fmt.Sprintf("[%s](%s)", hooktag.Project.Name, hooktag.Project.WebURL)
-		text := fmt.Sprintf("**There is a new release %s for: %s**\n\n\n", version, url)
+		url := fmt.Sprintf("[%s](%s)", hooktag.Project.PathWithNamespace, hooktag.Project.WebURL)
+		text := fmt.Sprintf("**Release %s for: %s**\n\n\n", version, url)
 
 		log.Debug("Build message")
 
 		message := notifier.NewMessage()
 		message.PreText = text
-		message.Text = tag.Release.Description
+		message.Text = description
 		message.Channel = h.MessageChannel
 		message.ParseMarkdown = true
 
