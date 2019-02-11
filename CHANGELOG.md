@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v0.2.1] - 2019-02-11
+
+### Fixed
+- check if gitlab sends double tag_push event - https://gitlab.com/gitlab-org/gitlab-ce/issues/52560
+
 ## [v0.2.0] - 2019-01-21
 
 ### Added

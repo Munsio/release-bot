@@ -73,6 +73,14 @@ func (h *GitlabHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		log.Debug("Payload is TagPush event")
 		hooktag := payload.(gitlabHook.TagEventPayload)
 
+		// Bugfix for https://gitlab.com/gitlab-org/gitlab-ce/issues/52560
+		// remove after fix is provided by gitlab
+		if hooktag.TotalCommitsCount == 0 {
+			log.Debug("Omit push cause of defect")
+			w.WriteHeader(http.StatusOK)
+			return
+		}
+
 		fullVersion := strings.Split(hooktag.Ref, "/")
 		version := fullVersion[len(fullVersion)-1]
 		log.Debug("Get Tag from Gitlab")
