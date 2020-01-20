@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.0.0] - 2019-01-21
+
+### Added
+- gitlab group filter
+- go modules support
+
+### Removed
+- dep dependency manager
+
 ## [v0.2.1] - 2019-02-11
 
 ### Fixed
