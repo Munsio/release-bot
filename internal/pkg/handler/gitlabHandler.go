@@ -16,10 +16,11 @@ import (
 
 // GitlabHandler to process gitlab events
 type GitlabHandler struct {
-	MessageChannel string
-	notifyChan     chan notifier.Message
-	hookParser     *gitlabHook.Webhook
-	apiClient      *gitlabApi.Client
+	MessageChannel       string
+	notifyChan           chan notifier.Message
+	hookParser           *gitlabHook.Webhook
+	apiClient            *gitlabApi.Client
+	excludedGitlabGroups []string
 }
 
 // NewGitlabHandler creates the handler to accept gitlab webhooks
@@ -49,6 +50,7 @@ func NewGitlabHandler(conf *config.Config, notifyChan chan notifier.Message) (*G
 	h.notifyChan = notifyChan
 	h.hookParser = hook
 	h.apiClient = api
+	h.excludedGitlabGroups = conf.Gitlab.ExcludedGroups
 
 	return h, nil
 }
@@ -94,6 +96,14 @@ func (h *GitlabHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		description := ""
 		if tag.Release != nil {
 			description = tag.Release.Description
+		}
+
+		for _, group := range h.excludedGitlabGroups {
+			if strings.HasPrefix(hooktag.Project.PathWithNamespace, group) {
+				log.Infof("found excluded project \"%s\"", hooktag.Project.PathWithNamespace)
+				w.WriteHeader(http.StatusUnprocessableEntity)
+				return
+			}
 		}
 
 		if strings.Contains(description, "%SKIP-NOTIFY%") {

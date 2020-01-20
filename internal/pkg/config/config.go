@@ -14,10 +14,11 @@ type Config struct {
 		IconEmoji string
 	}
 	Gitlab struct {
-		WebhookSecret string
-		APIToken      string
-		BaseURL       string
-		SkipSSLVerify bool
+		WebhookSecret  string
+		APIToken       string
+		BaseURL        string
+		SkipSSLVerify  bool
+		ExcludedGroups []string
 	}
 	Server struct {
 		Port int

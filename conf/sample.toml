@@ -13,6 +13,7 @@ WebhookSecret = "my_super_secret_token"
 APIToken = "api token"
 BaseURL = "https://urltogitlab.com/api/v4" #remove /api/v4 to use older gitlab api version
 SkipSSLVerify = false
+ExcludedGroups = ["groupname"]
 
 # Server config
 [Server]
